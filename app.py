@@ -20,21 +20,30 @@ def classify(text: str) -> str:
     text = text.lower()
 
     happy_words = [
-        "love","great","excellent","amazing","awesome",
-        "good","happy","wonderful","fantastic","best",
-        "like","enjoy"
+        "love", "loved", "like", "liked", "enjoy", "enjoyed",
+        "good", "great", "excellent", "amazing", "awesome",
+        "wonderful", "fantastic", "best", "happy", "joy",
+        "joyful", "delighted", "thrilled", "excited",
+        "perfect", "brilliant", "outstanding", "superb",
+        "pleased", "positive", "nice"
     ]
 
     sad_words = [
-        "hate","terrible","awful","bad","sad",
-        "worst","poor","horrible","angry",
-        "disappointed","disappointing"
+        "sad", "unhappy", "bad", "terrible", "awful",
+        "hate", "hated", "horrible", "worst", "poor",
+        "angry", "upset", "disappointed", "disappointing",
+        "frustrated", "annoyed", "negative", "disgusting",
+        "pathetic", "useless", "problem", "issue", "fail",
+        "failed", "failure"
     ]
 
-    if any(word in text for word in happy_words):
+    happy_score = sum(word in text for word in happy_words)
+    sad_score = sum(word in text for word in sad_words)
+
+    if happy_score > sad_score:
         return "happy"
 
-    if any(word in text for word in sad_words):
+    if sad_score > happy_score:
         return "sad"
 
     return "neutral"
