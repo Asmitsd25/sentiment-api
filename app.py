@@ -39,6 +39,10 @@ def classify(text: str) -> str:
 
     return "neutral"
 
+@app.get("/")
+def root():
+    return {"status": "ok"}
+
 @app.post("/sentiment")
 async def sentiment(req: SentimentRequest):
     return {
