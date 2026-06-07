@@ -17,43 +17,41 @@ class SentimentRequest(BaseModel):
     sentences: List[str]
 
 def classify(text: str) -> str:
-text = text.lower()
+    text = text.lower()
 
-```
-positive_words = [
-    "love","like","enjoy","happy","joy","glad","pleased",
-    "great","good","excellent","amazing","awesome",
-    "wonderful","fantastic","best","perfect","brilliant",
-    "outstanding","superb","beautiful","nice","cool",
-    "fun","success","successful","win","won","better",
-    "favorite","favourite","recommend","excited",
-    "thrilled","delighted","positive","smile",
-    "thank","thanks","helpful","helped","works",
-    "working","valuable","useful","impressive",
-    "incredible","remarkable","satisfied"
-]
+    positive_words = [
+        "love","like","enjoy","happy","joy","glad","pleased",
+        "great","good","excellent","amazing","awesome",
+        "wonderful","fantastic","best","perfect","brilliant",
+        "outstanding","superb","beautiful","nice","cool",
+        "fun","success","successful","win","won","better",
+        "favorite","favourite","recommend","excited",
+        "thrilled","delighted","positive","smile",
+        "thank","thanks","helpful","helped","works",
+        "working","valuable","useful","impressive",
+        "incredible","remarkable","satisfied"
+    ]
 
-negative_words = [
-    "hate","sad","bad","awful","terrible","horrible",
-    "worst","poor","angry","upset","frustrated",
-    "annoyed","disappointed","disappointing",
-    "negative","disgusting","pathetic","useless",
-    "problem","issue","fail","failed","failure",
-    "broken","bug","bugs","error","errors",
-    "wrong","complaint","pain","regret"
-]
+    negative_words = [
+        "hate","sad","bad","awful","terrible","horrible",
+        "worst","poor","angry","upset","frustrated",
+        "annoyed","disappointed","disappointing",
+        "negative","disgusting","pathetic","useless",
+        "problem","issue","fail","failed","failure",
+        "broken","bug","bugs","error","errors",
+        "wrong","complaint","pain","regret"
+    ]
 
-pos = sum(word in text for word in positive_words)
-neg = sum(word in text for word in negative_words)
+    pos = sum(word in text for word in positive_words)
+    neg = sum(word in text for word in negative_words)
 
-if pos > 0 and pos >= neg:
-    return "happy"
+    if pos > 0 and pos >= neg:
+        return "happy"
 
-if neg > pos:
-    return "sad"
+    if neg > pos:
+        return "sad"
 
-return "neutral"
-```
+    return "neutral"
 
 
 @app.get("/")
