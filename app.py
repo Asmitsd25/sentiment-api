@@ -17,36 +17,40 @@ class SentimentRequest(BaseModel):
     sentences: List[str]
 
 def classify(text: str) -> str:
-    text = text.lower()
+text = text.lower()
 
-    happy_words = [
-        "love", "loved", "like", "liked", "enjoy", "enjoyed",
-        "good", "great", "excellent", "amazing", "awesome",
-        "wonderful", "fantastic", "best", "happy", "joy",
-        "joyful", "delighted", "thrilled", "excited",
-        "perfect", "brilliant", "outstanding", "superb",
-        "pleased", "positive", "nice"
-    ]
+```
+positive = {
+    "love","loved","like","liked","enjoy","enjoyed",
+    "good","great","excellent","amazing","awesome",
+    "wonderful","fantastic","best","happy","joy",
+    "joyful","delighted","thrilled","excited",
+    "perfect","brilliant","outstanding","superb",
+    "pleased","positive","nice","beautiful",
+    "fun","funny","cool","success","successful",
+    "win","won","better","favorite","favourite",
+    "glad","smile","recommend"
+}
 
-    sad_words = [
-        "sad", "unhappy", "bad", "terrible", "awful",
-        "hate", "hated", "horrible", "worst", "poor",
-        "angry", "upset", "disappointed", "disappointing",
-        "frustrated", "annoyed", "negative", "disgusting",
-        "pathetic", "useless", "problem", "issue", "fail",
-        "failed", "failure"
-    ]
+negative = {
+    "sad","unhappy","bad","terrible","awful",
+    "hate","hated","horrible","worst","poor",
+    "angry","upset","disappointed","disappointing",
+    "frustrated","annoyed","negative","disgusting",
+    "pathetic","useless","problem","issue","fail",
+    "failed","failure","boring","broken","bug",
+    "bugs","error","errors","wrong","nasty",
+    "complaint","complain","pain","regret"
+}
 
-    happy_score = sum(word in text for word in happy_words)
-    sad_score = sum(word in text for word in sad_words)
+pos = sum(1 for w in positive if w in text)
+neg = sum(1 for w in negative if w in text)
 
-    if happy_score > sad_score:
-        return "happy"
-
-    if sad_score > happy_score:
-        return "sad"
-
-    return "neutral"
+if pos > neg:
+    return "happy"
+if neg > pos:
+    return "sad"
+return "neutral"
 
 @app.get("/")
 def root():
